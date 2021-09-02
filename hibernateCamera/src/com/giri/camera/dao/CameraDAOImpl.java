@@ -1,10 +1,14 @@
 package com.giri.camera.dao;
 
+import java.util.Iterator;
+import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.giri.camera.entity.CameraEntity;
 import com.giri.camera.util.SessionFactUtil;
+
 
 public class CameraDAOImpl implements CameraDAO {
 	private SessionFactory factory = SessionFactUtil.getFactory();
@@ -46,6 +50,53 @@ public class CameraDAOImpl implements CameraDAO {
 			CameraEntity cam = session.get(CameraEntity.class, id);
 			session.delete(cam);
 			trans.commit();
-        }
 		}
+	}
+
+	@Override
+	public void saveList(List<CameraEntity> list) {
+
+		try (Session session = factory.openSession()) {
+			System.out.println("stared");
+			Transaction trans = session.beginTransaction();
+			list.forEach(l -> {
+				session.save(l);
+				System.out.println(l);
+			});
+			trans.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+
+		}
+	}
+
+	@Override
+	public void deleteList(List<Integer> ids) {
+		try (Session session = factory.openSession()) {
+			System.out.println("stared");
+			Transaction trans = session.beginTransaction();
+			ids.forEach(del -> {
+				session.delete(del);
+				System.out.println("deleting "+del);
+			});
+			trans.commit();
+
+		}
+	}
+
+	@Override
+	public void deletList(List<CameraEntity> entity) {
+		try (Session session = factory.openSession()) {
+			System.out.println("stared");
+			Transaction trans = session.beginTransaction();
+			Iterator<CameraEntity> itList = entity.iterator();
+		    while(itList.hasNext()) {
+		        CameraEntity emp = itList.next();
+		        session.delete(emp);
+		       System.out.println("deleted");
+		    }
+			trans.commit();
+		
+	}
+}
 }

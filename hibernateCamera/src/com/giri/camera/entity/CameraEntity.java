@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "camera_table")
 public class CameraEntity {
@@ -16,24 +17,27 @@ public class CameraEntity {
 	private double resolution;
 	@Column(name = "brand")
 	private String brand;
+	// @ElementCollection
 	@Column(name = "lens_type")
 	private String lensType;
 	@Column(name = "video_cap_res")
 	private double videoCaptureResolution;
 	@Column(name = "screen_size")
-	private double screenSize;//b_id int AI PK 
+	private double screenSize;// b_id int AI PK
 	@Column(name = "dis_type")
 	private String displayType;
 	@Column(name = "origin")
 	private String brandOrigin;
 	@Column(name = "flash")
 	private boolean flash;
-	
-	public CameraEntity() {}
 
-	public CameraEntity(String modelName, double resolution, String brand, String lensType,
+	public CameraEntity() {
+	}
+
+	public CameraEntity(int id,String modelName, double resolution, String brand, String lensType,
 			double videoCaptureResolution, double screenSize, String displayType, String brandOrigin, boolean flash) {
 		super();
+		this.id=id;
 		this.modelName = modelName;
 		this.resolution = resolution;
 		this.brand = brand;
@@ -200,6 +204,5 @@ public class CameraEntity {
 	public void setFlash(boolean flash) {
 		this.flash = flash;
 	}
-	
-		
+
 }
