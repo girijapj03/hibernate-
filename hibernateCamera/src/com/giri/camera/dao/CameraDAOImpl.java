@@ -108,6 +108,7 @@ public class CameraDAOImpl implements CameraDAO {
 		try (Session session = factory.openSession()) {
 			System.out.println("stared");
 			Transaction trans = session.beginTransaction();
+			//Query query=session.createQuery("from com.giri.camera.entity.CameraEntity");
 			Query query=session.createQuery("from CameraEntity");
 			List<CameraEntity> list=query.getResultList();
 			System.out.println(list);
