@@ -9,6 +9,7 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">tej@18</property>
 		<property name="hibernate.show_sql">true</property>
-		<mapping class="com.giri.camera.entity.CameraEntity"/>		
+		<property name="format_sql">true</property>
+		<mapping class="com.giri.camera.entity.CameraEntity" />
 	</session-factory>
 </hibernate-configuration>

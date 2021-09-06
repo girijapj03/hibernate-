@@ -2,6 +2,9 @@ package com.giri.camera.dao;
 
 import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,8 +58,7 @@ public class CameraDAOImpl implements CameraDAO {
 
 	@Override
 	public void saveList(List<CameraEntity> list) {
-
-		try (Session session = factory.openSession()) {
+     try (Session session = factory.openSession()) {
 			System.out.println("stared");
 			Transaction trans = session.beginTransaction();
 			list.forEach(l -> {
@@ -76,6 +78,7 @@ public class CameraDAOImpl implements CameraDAO {
 			System.out.println("stared");
 			Transaction trans = session.beginTransaction();
 			ids.forEach(del -> {
+				CameraEntity cam = session.get(CameraEntity.class, del);
 				session.delete(del);
 				System.out.println("deleting "+del);
 			});
@@ -97,6 +100,18 @@ public class CameraDAOImpl implements CameraDAO {
 		    }
 			trans.commit();
 		
+	}
+}
+
+	@Override
+	public CameraEntity getAllByQuery() {
+		try (Session session = factory.openSession()) {
+			System.out.println("stared");
+			Transaction trans = session.beginTransaction();
+			Query query=session.createQuery("from CameraEntity");
+			List<CameraEntity> list=query.getResultList();
+			System.out.println(list);
+		return null;
 	}
 }
 }

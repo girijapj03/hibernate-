@@ -12,4 +12,5 @@ public interface CameraDAO {
 	void saveList(List<CameraEntity> entity);
 	void deletList(List<CameraEntity> entity);
 	void deleteList(List<Integer> ids);
+	CameraEntity getAllByQuery();
 }
